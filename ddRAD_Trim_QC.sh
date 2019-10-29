@@ -35,7 +35,7 @@ if [ $# -lt 1 ]
     while read -r ID; do
     echo "Beginning pre-trim QC for "$ID >> trim_and_QC_log.txt
     fastqc -t $threads \
-    "$fastqs_path"/"$ID".fq \
+    "$fastqs_path"/"$ID".fq.gz \
     --outdir pre_trim_QC_files/
     echo $ID" pre-trim QC done" >> trim_and_QC_log.txt
 
@@ -43,7 +43,7 @@ if [ $# -lt 1 ]
     TrimmomaticSE -threads $threads\
     -phred33\
     -trimlog trim_and_QC_log.txt\
-    "$fastqs_path"/"$ID".fq \
+    "$fastqs_path"/"$ID".fq.gz \
     "$fastqs_path"/"$ID"_trimmed.fq.gz \
     ILLUMINACLIP:$adapters:1:30:10 \
     LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:90 >> trim_and_QC_log.txt
